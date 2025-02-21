@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="it">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calcolatore di Esposizione</title>
@@ -8,21 +14,43 @@
       * {
         padding: 0;
         margin: 0;
+        font-family: "Inter", serif;
       }
       .main {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
         gap: 10px;
+        
       }
       body {
-        background-color: black;
+        background-color: #030303;
         padding: 10px;
         display: flex;
         align-items: center;
+        flex-direction: column;
         justify-content: center;
         overflow: hidden;
-        
+        gap: 20px;
+        height: 100vh; /* Imposta l'altezza a tutta la finestra */
+        position: relative;
+      }
+      .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        width: 100%;
+      }
+      .t {
+        color: white;
+        font-size: 38px;
+        border: 1px solid #ffffff30;
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+        background-color: #ffffff07;
+        border-radius: 16px;
       }
       .cell {
         display: flex;
@@ -35,6 +63,9 @@
         overflow: hidden;
         align-items: center;
         justify-content: center;
+      }
+      .cell:active {
+        border: white;
       }
       button {
         background-color: transparent;
@@ -76,30 +107,30 @@
   </head>
   <body>
     <div class="main">
-        <div class="cell">
-            <span>ISO</span>
-            <input type="number" id="iso" step="1" value="100" /><br />
-            <button onclick="calcolaISO()">
-              ISO
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <g fill="none" fill-rule="evenodd">
-                  <path
-                    d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
-                  />
-                  <path
-                    fill="#fff"
-                    d="M15.707 11.293a1 1 0 0 1 0 1.414l-5.657 5.657a1 1 0 1 1-1.414-1.414l4.95-4.95l-4.95-4.95a1 1 0 0 1 1.414-1.414z"
-                  />
-                </g>
-              </svg>
-            </button>
-          </div>
-      
+      <div class="cell">
+        <span>ISO</span>
+        <input type="number" id="iso" step="1" value="100" /><br />
+        <button onclick="calcolaISO()">
+          ISO
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <g fill="none" fill-rule="evenodd">
+              <path
+                d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
+              />
+              <path
+                fill="#fff"
+                d="M15.707 11.293a1 1 0 0 1 0 1.414l-5.657 5.657a1 1 0 1 1-1.414-1.414l4.95-4.95l-4.95-4.95a1 1 0 0 1 1.414-1.414z"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+
       <div class="cell">
         <span>Diaframma (f/)</span>
         <input type="number" id="apertura" step="0.1" value="1.4" /><br />
@@ -123,7 +154,7 @@
           </svg>
         </button>
       </div>
-     
+
       <div class="cell">
         <span>sec</span>
         <input type="text" id="tempo" value="1/400" /><br />
