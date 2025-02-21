@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calcolatore di Esposizione</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 10px;
+      }
+      body {
+        background-color: black;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        
+      }
+      .cell {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ffffff30;
+        background-color: #ffffff07;
+        border-radius: 16px;
+        gap: 20px;
+        padding: 10px;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+      }
+      button {
+        background-color: transparent;
+        border: 1px solid #ffffff30;
+        border-radius: 6px;
+        color: white;
+        width: 100%;
+        font-size: 20px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      input {
+        background-color: transparent;
+        font-size: 28px;
+        color: white;
+        border: none;
+        padding: 10px;
+        max-width: 100%;
+        text-align: center;
+      }
+      input:active,
+      input:focus {
+        border: none;
+        outline: none;
+      }
+      span {
+        font-size: 12px;
+        color: white;
+        text-align: left;
+        width: 100%;
+      }
+      .buts {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+        <div class="cell">
+            <span>ISO</span>
+            <input type="number" id="iso" step="1" value="100" /><br />
+            <button onclick="calcolaISO()">
+              ISO
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <g fill="none" fill-rule="evenodd">
+                  <path
+                    d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
+                  />
+                  <path
+                    fill="#fff"
+                    d="M15.707 11.293a1 1 0 0 1 0 1.414l-5.657 5.657a1 1 0 1 1-1.414-1.414l4.95-4.95l-4.95-4.95a1 1 0 0 1 1.414-1.414z"
+                  />
+                </g>
+              </svg>
+            </button>
+          </div>
+      
+      <div class="cell">
+        <span>Diaframma (f/)</span>
+        <input type="number" id="apertura" step="0.1" value="1.4" /><br />
+        <button onclick="calcolaApertura()">
+          f/
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <g fill="none" fill-rule="evenodd">
+              <path
+                d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
+              />
+              <path
+                fill="#fff"
+                d="M15.707 11.293a1 1 0 0 1 0 1.414l-5.657 5.657a1 1 0 1 1-1.414-1.414l4.95-4.95l-4.95-4.95a1 1 0 0 1 1.414-1.414z"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+     
+      <div class="cell">
+        <span>sec</span>
+        <input type="text" id="tempo" value="1/400" /><br />
+        <button onclick="calcolaTempo()">
+          sec
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <g fill="none" fill-rule="evenodd">
+              <path
+                d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
+              />
+              <path
+                fill="#fff"
+                d="M15.707 11.293a1 1 0 0 1 0 1.414l-5.657 5.657a1 1 0 1 1-1.414-1.414l4.95-4.95l-4.95-4.95a1 1 0 0 1 1.414-1.414z"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+      <div class="cell">
+        <span>EV</span>
+        <input type="number" id="ev" step="0.1" /><br />
+        <button onclick="calcolaEV()">
+          EV
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <g fill="none" fill-rule="evenodd">
+              <path
+                d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
+              />
+              <path
+                fill="#fff"
+                d="M15.707 11.293a1 1 0 0 1 0 1.414l-5.657 5.657a1 1 0 1 1-1.414-1.414l4.95-4.95l-4.95-4.95a1 1 0 0 1 1.414-1.414z"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function parseTempo(tempoInput) {
+        if (tempoInput.includes("/")) {
+          let parts = tempoInput.split("/");
+          return parseFloat(parts[0]) / parseFloat(parts[1]);
+        }
+        return parseFloat(tempoInput);
+      }
+
+      function calcolaEV() {
+        let f = parseFloat(document.getElementById("apertura").value);
+        let t = parseTempo(document.getElementById("tempo").value);
+        let iso = parseFloat(document.getElementById("iso").value);
+
+        if (f <= 0 || t <= 0 || iso <= 0) {
+          alert("Inserisci valori validi!");
+          return;
+        }
+
+        let ev = Math.log2((f * f) / t) - Math.log2(iso / 100);
+        document.getElementById("ev").value = ev.toFixed(2);
+      }
+
+      function calcolaISO() {
+        let ev = parseFloat(document.getElementById("ev").value);
+        let f = parseFloat(document.getElementById("apertura").value);
+        let t = parseTempo(document.getElementById("tempo").value);
+
+        if (isNaN(ev) || f <= 0 || t <= 0) {
+          alert("Inserisci valori validi!");
+          return;
+        }
+
+        let iso = 100 * Math.pow(2, Math.log2((f * f) / t) - ev);
+        document.getElementById("iso").value = Math.round(iso);
+      }
+
+      function calcolaApertura() {
+        let ev = parseFloat(document.getElementById("ev").value);
+        let t = parseTempo(document.getElementById("tempo").value);
+        let iso = parseFloat(document.getElementById("iso").value);
+
+        if (isNaN(ev) || t <= 0 || iso <= 0) {
+          alert("Inserisci valori validi!");
+          return;
+        }
+
+        let f = Math.sqrt(t * Math.pow(2, ev) * (iso / 100));
+        document.getElementById("apertura").value = f.toFixed(2);
+      }
+
+      function calcolaTempo() {
+        let ev = parseFloat(document.getElementById("ev").value);
+        let f = parseFloat(document.getElementById("apertura").value);
+        let iso = parseFloat(document.getElementById("iso").value);
+
+        if (isNaN(ev) || f <= 0 || iso <= 0) {
+          alert("Inserisci valori validi!");
+          return;
+        }
+
+        let t = (f * f) / (Math.pow(2, ev) * (iso / 100));
+        let tempoStr = t < 1 ? `1/${Math.round(1 / t)}` : t.toFixed(2);
+
+        document.getElementById("tempo").value = tempoStr;
+      }
+    </script>
+  </body>
+</html>
