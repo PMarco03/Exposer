@@ -21,19 +21,16 @@
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
         gap: 10px;
-        
       }
       body {
-        background-color: #030303;
+        background-color: #0e0d12;
         padding: 10px;
         display: flex;
         align-items: center;
         flex-direction: column;
         justify-content: center;
         overflow: hidden;
-        gap: 20px;
-        height: 100vh; /* Imposta l'altezza a tutta la finestra */
-        position: relative;
+   
       }
       .title {
         display: flex;
@@ -45,24 +42,42 @@
       .t {
         color: white;
         font-size: 38px;
-        border: 1px solid #ffffff30;
+        border: 1px solid #ffffff04;
         flex: 1;
         padding: 10px;
         text-align: center;
-        background-color: #ffffff07;
+        background-color: #1d1d1f;
         border-radius: 16px;
       }
       .cell {
         display: flex;
         flex-direction: column;
-        border: 1px solid #ffffff30;
-        background-color: #ffffff07;
+        border: 1px solid #ffffff13;
+        background-color: #1d1d1f;
         border-radius: 16px;
         gap: 20px;
         padding: 10px;
         overflow: hidden;
         align-items: center;
         justify-content: center;
+      }
+      .cell2 {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ffffff13;
+        background-color: #1d1d1f;
+        border-radius: 16px;
+        gap: 20px;
+        padding: 10px;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+
+      }
+      .topcell2{
+        display: flex;
+        padding: 10px;
+        width: 100%;
       }
       .cell:active {
         border: white;
@@ -103,13 +118,43 @@
         display: flex;
         justify-content: space-between;
       }
+      .input ::placeholder {
+        color: white;
+      }
+      svg {
+        transform: rotate();
+      }
+      .titlecontainer{
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        width: 100%;
+      }
+      .titlecontainer span{
+        font-size: 32px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: #1d1d1f;
+        border: 1px solid #ffffff30;
+        padding: 10px;
+        border-radius: 16px;
+      }
+      svg{
+        transform: rotate(-90deg);
+      }
     </style>
   </head>
-  <body>
+  <body>  <div class="titlecontainer">
+        <span> Calcolatrice</span>
+      </div>
     <div class="main">
+    
       <div class="cell">
         <span>ISO</span>
-        <input type="number" id="iso" step="1" value="100" /><br />
+        <input placeholder="0,0" id="iso" step="1" value="100" /><br />
         <button onclick="calcolaISO()">
           ISO
           <svg
@@ -130,10 +175,9 @@
           </svg>
         </button>
       </div>
-
       <div class="cell">
         <span>Diaframma (f/)</span>
-        <input type="number" id="apertura" step="0.1" value="1.4" /><br />
+        <input type="number" placeholder="0,0" id="apertura" step="0.1" value="1.4" /><br />
         <button onclick="calcolaApertura()">
           f/
           <svg
@@ -154,10 +198,9 @@
           </svg>
         </button>
       </div>
-
       <div class="cell">
         <span>sec</span>
-        <input type="text" id="tempo" value="1/400" /><br />
+        <input placeholder="0,0" type="text" id="tempo" value="1/400" /><br />
         <button onclick="calcolaTempo()">
           sec
           <svg
@@ -180,7 +223,7 @@
       </div>
       <div class="cell">
         <span>EV</span>
-        <input type="number" id="ev" step="0.1" /><br />
+        <input type="number" placeholder="0,0" id="ev" step="0.1" /><br />
         <button onclick="calcolaEV()">
           EV
           <svg
@@ -202,7 +245,7 @@
         </button>
       </div>
     </div>
-
+   
     <script>
       function parseTempo(tempoInput) {
         if (tempoInput.includes("/")) {
@@ -270,5 +313,13 @@
         document.getElementById("tempo").value = tempoStr;
       }
     </script>
+    <script>
+      document.querySelectorAll("input").forEach(input => {
+        input.addEventListener("focus", function () {
+          this.select();
+        });
+      });
+    </script>
+    
   </body>
 </html>
