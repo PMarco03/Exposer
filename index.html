@@ -69,18 +69,16 @@
         justify-content: space-between;
       }
 
-
       body {
         background-color: #0e0d12;
         padding: 10px;
         height: 100vh;
         display: flex;
         align-items: center;
-        
+
         flex-direction: column;
         overflow: hidden;
         background-image: linear-gradient(135deg, #202020 0%, #0a0a0a 100%);
-
       }
       .container {
         max-width: 1440px;
@@ -132,14 +130,17 @@
         border-radius: 16px;
       }
       .cell.selected {
-        border-color: rgba(56, 140, 48, 0.423); /* Bordo rosso per la cella selezionata */
+        border-color: rgba(
+          56,
+          140,
+          48,
+          0.423
+        ); /* Bordo rosso per la cella selezionata */
       }
     </style>
   </head>
   <body>
-    <div class="titlecontainer">
-      <span class="titlespan"> Calcolatrice</span>
-    </div>
+  
     <div class="container">
       <div class="cell" id="iso">
         <span class="label">ISO</span>
@@ -181,20 +182,26 @@
     </div>
 
     <script>
+      function trovaValorePiuVicino(array, valore) {
+        return array.reduce((prev, curr) =>
+          Math.abs(curr - valore) < Math.abs(prev - valore) ? curr : prev
+        );
+      }
+
       let lockedCell = "ev"; // Definiamo la cella bloccata (per esempio "ev")
       function calc(id) {
-        const allLocks = document.querySelectorAll('#lock');
-    allLocks.forEach(function(lock) {
-      lock.textContent = 'lock_open'; // Cambia a 'lock_open'
-    });
+        const allLocks = document.querySelectorAll("#lock");
+        allLocks.forEach(function (lock) {
+          lock.textContent = "lock_open"; // Cambia a 'lock_open'
+        });
 
-    // Trova l'elemento con ID dinamico
-    const lockElement = document.getElementById(id).querySelector('#lock');
-    
-    // Cambia l'icona da 'lock_open' a 'lock'
-    if (lockElement.textContent === 'lock_open') {
-      lockElement.textContent = 'lock'; // Cambia a 'lock'
-    }
+        // Trova l'elemento con ID dinamico
+        const lockElement = document.getElementById(id).querySelector("#lock");
+
+        // Cambia l'icona da 'lock_open' a 'lock'
+        if (lockElement.textContent === "lock_open") {
+          lockElement.textContent = "lock"; // Cambia a 'lock'
+        }
         lockedCell = id;
 
         doStuff();
@@ -315,7 +322,7 @@
 
         // Assicurati che l'array dei valori esista per questo id
         if (cellValues) {
-          let index = Math.floor(cellValues.length/2); // Imposta il valore iniziale
+          let index = Math.floor(cellValues.length / 2); // Imposta il valore iniziale
           const valueDisplay = ghiera.querySelector(".value");
           valueDisplay.innerText = cellValues[index]; // Mostra il valore iniziale
 
