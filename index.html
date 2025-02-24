@@ -2,10 +2,17 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=keyboard_arrow_up"
     />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ghiera Verticale</title>
     <style>
@@ -21,8 +28,7 @@
         text-align: left;
         width: 100%;
       }
-      .cell .titlespan {
-      }
+
       .buts {
         display: flex;
         justify-content: space-between;
@@ -39,8 +45,15 @@
         align-items: center;
         justify-content: space-between;
       }
-      button span {
+      i {
+        color: white;
+        opacity: 0.6;
+      }
+      button i {
+        opacity: 1;
+
         text-align: center;
+        width: 100%;
       }
       .cell {
         display: flex;
@@ -54,23 +67,23 @@
         overflow: hidden;
         align-items: center;
         justify-content: space-between;
-        aspect-ratio: 0.75;
       }
 
-      .cell:active {
-        border: white;
-      }
+
       body {
         background-color: #0e0d12;
-        padding: 20px;
+        padding: 10px;
         height: 100vh;
         display: flex;
         align-items: center;
+        
         flex-direction: column;
         overflow: hidden;
         background-image: linear-gradient(135deg, #202020 0%, #0a0a0a 100%);
+
       }
       .container {
+        max-width: 1440px;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
@@ -100,8 +113,9 @@
       }
       .titlecontainer {
         display: flex;
+        max-width: 1440px;
         align-items: center;
-        padding: 20px;
+        padding: 10px;
         width: 100%;
       }
       .titlecontainer span {
@@ -118,11 +132,7 @@
         border-radius: 16px;
       }
       .cell.selected {
-        border-color: rgb(
-          146,
-          69,
-          69
-        ); /* Bordo rosso per la cella selezionata */
+        border-color: rgba(56, 140, 48, 0.423); /* Bordo rosso per la cella selezionata */
       }
     </style>
   </head>
@@ -133,40 +143,61 @@
     <div class="container">
       <div class="cell" id="iso">
         <span class="label">ISO</span>
+        <i class="material-icons"> arrow_drop_up </i>
         <div class="value" id="isoVal"></div>
+        <i class="material-icons"> arrow_drop_down </i>
         <button onclick="calc('iso')">
-          <span class="material-symbols-outlined"> keyboard_arrow_up </span>
+          <i class="material-icons" id="lock"> lock_open </i>
         </button>
       </div>
       <div class="cell" id="aperture">
-        <span class="titlespan"> f/</span>
+        <span class="label"> f/</span>
+        <i class="material-icons"> arrow_drop_up </i>
         <div class="value" id="apertureVal"></div>
+        <i class="material-icons"> arrow_drop_down </i>
         <button onclick="calc('aperture')">
-          <span class="material-symbols-outlined"> keyboard_arrow_up </span>
+          <i class="material-icons" id="lock"> lock_open </i>
         </button>
       </div>
 
       <div class="cell" id="exposure">
-        <span class="titlespan"> sec</span>
+        <span class="label"> sec</span>
+        <i class="material-icons"> arrow_drop_up </i>
         <div class="value" id="exposureVal"></div>
+        <i class="material-icons"> arrow_drop_down </i>
         <button onclick="calc('exposure')">
-          <span class="material-symbols-outlined"> keyboard_arrow_up </span>
+          <i class="material-icons" id="lock"> lock_open </i>
         </button>
       </div>
-      <div class="cell" id="ev">
-        <span class="titlespan"> EV</span>
+      <div class="cell selected" id="ev">
+        <span class="label"> EV</span>
+        <i class="material-icons"> arrow_drop_up </i>
         <div class="value" id="evVal"></div>
+        <i class="material-icons"> arrow_drop_down </i>
         <button onclick="calc('ev')">
-          <span class="material-symbols-outlined"> keyboard_arrow_up </span>
+          <i class="material-icons" id="lock"> lock </i>
         </button>
       </div>
     </div>
 
     <script>
       let lockedCell = "ev"; // Definiamo la cella bloccata (per esempio "ev")
-      function calc(idCalc) {
-        lockedCell = idCalc;
-        doStuff(idCalc);
+      function calc(id) {
+        const allLocks = document.querySelectorAll('#lock');
+    allLocks.forEach(function(lock) {
+      lock.textContent = 'lock_open'; // Cambia a 'lock_open'
+    });
+
+    // Trova l'elemento con ID dinamico
+    const lockElement = document.getElementById(id).querySelector('#lock');
+    
+    // Cambia l'icona da 'lock_open' a 'lock'
+    if (lockElement.textContent === 'lock_open') {
+      lockElement.textContent = 'lock'; // Cambia a 'lock'
+    }
+        lockedCell = id;
+
+        doStuff();
       }
 
       // Gestione del click su ogni cella
@@ -273,7 +304,7 @@
       };
 
       // Popolamento dell'array EV con un ciclo per aggiungere i valori da -25 a 0 (con passo 0.1)
-      for (let i = -25; i <= 25; i += 0.1) {
+      for (let i = -25; i <= 25; i += 0.5) {
         values.ev.push(i.toFixed(1)); // Aggiungi il valore a EV
       }
 
@@ -284,7 +315,7 @@
 
         // Assicurati che l'array dei valori esista per questo id
         if (cellValues) {
-          let index = Math.floor(5); // Imposta il valore iniziale
+          let index = Math.floor(cellValues.length/2); // Imposta il valore iniziale
           const valueDisplay = ghiera.querySelector(".value");
           valueDisplay.innerText = cellValues[index]; // Mostra il valore iniziale
 
